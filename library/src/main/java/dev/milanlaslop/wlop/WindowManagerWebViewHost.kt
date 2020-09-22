@@ -1,7 +1,11 @@
 package dev.milanlaslop.wlop
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.PixelFormat
+import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.view.WindowManager
 
 class WindowManagerWebViewHost(context: Context) : IWebViewHost {
@@ -30,5 +34,22 @@ class WindowManagerWebViewHost(context: Context) : IWebViewHost {
     }
 
     override fun refreshParentVisibility() {
+    }
+
+    companion object {
+        fun hasPermission(context: Context) : Boolean {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                Settings.canDrawOverlays(context)
+            } else {
+                return false
+            }
+        }
+
+        fun askForPermission(context: Context) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + context.getPackageName()))
+                context.startActivity(intent)
+            }
+        }
     }
 }

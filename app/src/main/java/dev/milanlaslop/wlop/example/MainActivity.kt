@@ -12,6 +12,7 @@ import android.widget.RadioGroup
 import android.widget.TextView
 import android.widget.Toast
 import dev.milanlaslop.wlop.ActivityWebViewHost
+import dev.milanlaslop.wlop.WindowManagerWebViewHost
 import kotlinx.coroutines.runBlocking
 
 class MainActivity : AppCompatActivity() {
@@ -59,6 +60,14 @@ class MainActivity : AppCompatActivity() {
             R.id.config_dataEntry_automatic -> "automatic"
             R.id.config_dataEntry_manual -> "manual"
             else -> throw Exception("Invalid data entry mode selected")
+        }
+
+        if (host == "window_manager") {
+            if (!WindowManagerWebViewHost.hasPermission(this)) {
+                WindowManagerWebViewHost.askForPermission(this)
+                Toast.makeText(this, "Please check: Allow display over other apps", Toast.LENGTH_SHORT).show()
+            }
+            return
         }
 
         startService(Intent(this, DownloadService::class.java)

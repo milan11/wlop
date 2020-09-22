@@ -148,6 +148,8 @@ This host has a disadvantage that it needs a permission:
 
 The user can grant the permission by going to application settings - Display over other apps.
 
+Use `WindowManagerWebViewHost.hasPermission` to check whether the permission is currently granted and `WindowManagerWebViewHost.askForPermission` to open the settings page where this permission can be granted.
+
 ### WebViewAccess
 
 To work with the `WebView`:
