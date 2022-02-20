@@ -146,7 +146,8 @@ class WebViewAccess internal constructor(private val source : WebViewSource, pri
                         conn.url.protocol + "://" + location.substring(2)
                     }
                     location.startsWith('/') -> {
-                        conn.url.protocol + "://" + conn.url.host + ':' + conn.url.port + location
+                        val portStr = if (conn.url.port != -1) ":" + conn.url.port; else ""
+                        conn.url.protocol + "://" + conn.url.host + portStr + location
                     }
                     else -> {
                         location
