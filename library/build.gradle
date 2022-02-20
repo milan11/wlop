@@ -57,7 +57,7 @@ publishing {
         wlop(MavenPublication) {
             groupId 'dev.milanlaslop.wlop'
             artifactId 'wlop'
-            version "0.13.$buildNumber"
+            version "0.14.$buildNumber"
             artifact(sourceJar)
             artifact("$buildDir/outputs/aar/library-release.aar")
 
